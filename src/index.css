@@ -1,0 +1,172 @@
+@import 'tailwindcss';
+
+/* ————————————————————————————————————————————————————————————
+ * 郑超 Zheng Chao — Organic Futurism / Bio-Tech Editorial
+ * Visual tokens: true black, pearl white, petal pink,
+ * restrained violet accent, ice-blue bioluminescence,
+ * champagne-gold neural filigree.
+ * ———————————————————————————————————————————————————————————— */
+
+@theme {
+  --color-void: #060609;
+  --color-ink: #0c0c12;
+  --color-pearl: #f3f0ea;
+  --color-mist: #a79fb3;
+  --color-faint: #635d70;
+  --color-petal: #e5b8c9;
+  --color-violet: #8e7bff;
+  --color-ice: #a5dce8;
+  --color-gold: #d8c08f;
+
+  --font-serif: 'Cormorant Garamond', 'Noto Serif SC', 'Songti SC', serif;
+  --font-sans: 'Inter', 'Noto Sans SC', 'PingFang SC', sans-serif;
+}
+
+/* ————————————————— Base ————————————————— */
+
+html {
+  background-color: var(--color-void);
+  scroll-behavior: auto;
+}
+
+body {
+  @apply bg-void text-pearl font-sans antialiased;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(142, 123, 255, 0.35);
+  color: var(--color-pearl);
+}
+
+/* Thin editorial scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 159, 179, 0.18);
+  border-radius: 999px;
+  border: 3px solid var(--color-void);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 159, 179, 0.32);
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 1px solid rgba(142, 123, 255, 0.7);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* ————————————————— Materials ————————————————— */
+
+/* Smoked glass — light, for nav & panels */
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(243, 240, 234, 0.08);
+}
+
+/* Deep smoked glass — mobile menu / overlays */
+.glass-deep {
+  background: rgba(6, 6, 9, 0.86);
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(243, 240, 234, 0.08);
+}
+
+/* Hairline rules */
+.hairline {
+  border-color: rgba(243, 240, 234, 0.09);
+}
+.hairline-t {
+  border-top: 1px solid rgba(243, 240, 234, 0.09);
+}
+.hairline-b {
+  border-bottom: 1px solid rgba(243, 240, 234, 0.09);
+}
+
+/* Film grain overlay for imagery */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+}
+
+/* Gold neural hairline glow */
+.neural-glow {
+  filter: drop-shadow(0 0 6px rgba(216, 192, 143, 0.35));
+}
+
+/* ————————————————— Scroll hint ————————————————— */
+
+@keyframes scrollhint {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* ————————————————— Marquee ————————————————— */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ————————————————— Scroll reveal fallback ————————————————— */
+
+.reveal-static {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ————————————————— Reduced motion ————————————————— */
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
